@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace OurCarPlanner.Models
 {
@@ -63,7 +64,6 @@ namespace OurCarPlanner.Models
         [DataType(DataType.ImageUrl)]
         [Required]
         public string ImageUrl { get; set; }
-        //public byte[] ImageUrl { get; set; }
     }
 
 }

@@ -23,6 +23,8 @@ namespace OurCarPlanner
           .Build();
             MongoClient client = new MongoClient(configuration.GetConnectionString("OurCarDb"));
             IMongoDatabase database = client.GetDatabase("OurCarDb");
+            
+
             //var collection1 = database.GetCollection<BsonDocument>("UserMaster");
             //BsonArray dataFields1 = new BsonArray { new BsonDocument {
             //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
@@ -123,6 +125,8 @@ namespace OurCarPlanner
             //    { "GroupMembers" , "Yes"}
             //};
             //collection7.InsertOne(document7);
+
+           
 
             CreateWebHostBuilder(args).Build().Run();
 

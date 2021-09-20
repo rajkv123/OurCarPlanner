@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="CarId" class="control-label"></label>
                 <input asp-for="CarId" class="form-control" />
                 <span asp-validation-for="CarId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Brand" class="control-label"></label>
                 <input asp-for="Brand" class="form-control" />
@@ -69,7 +69,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                @*<p><label for="file" color="blue" style="cursor: pointer; opacity: 0; width: 24px; height: 24px; font-size: 0; position: absolute; ">Upload Image</label></p>*@
+                <img id="output" width="200" />
+                <input asp-for="ImageUrl" type="file" accept="image/*" name="ImageUrl" id="file" onchange="loadFile(event)" Class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -86,4 +88,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/custom-validation.js"></script>
+ <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 }

@@ -7,6 +7,31 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+label {
+    cursor: pointer;
+}
+
+label {
+    cursor: pointer;
+}
+.fileSpan {
+    cursor: pointer;
+    margin-left: 22pt;
+}
+
+    .fileSpan input {
+        display: none;
+    }
+
+    .fileSpan .button {
+        background: #0C8CC4;
+        color: #fff;
+        font-size: 12px;
+        margin-right: 5px;
+        padding: 7px 20px;
+    }
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

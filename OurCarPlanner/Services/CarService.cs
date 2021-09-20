@@ -12,27 +12,11 @@ namespace OurCarPlanner.Services
     public class CarService
     {
         private readonly IMongoCollection<Car> cars;
-        private IGridFSBucket bucket;
-        private byte[] source;
-        private ObjectId id;
         public CarService(IConfiguration config)
         {
             MongoClient client = new MongoClient(config.GetConnectionString("OurCarDb"));
             IMongoDatabase database = client.GetDatabase("OurCarDb");
             cars = database.GetCollection<Car>("Cars");
-            
-            var fs = new GridFSBucket(database);
-            var options = new GridFSUploadOptions
-            {
-                ChunkSizeBytes = 64512, // 63KB
-                Metadata = new BsonDocument{
-                    { "resolution", "1080P" },
-                    { "copyrighted", true }
-                }
-            };
-            var id = UploadFile(fs);
-
-            DownloadFile(fs, id);
         }
 
         public List<Car> Get()
@@ -47,7 +31,6 @@ namespace OurCarPlanner.Services
 
         public Car Create(Car car)
         { 
-            source = ReadImageFile(car.ImageUrl);
             cars.InsertOne(car);
             return car;
         }
@@ -66,40 +49,31 @@ namespace OurCarPlanner.Services
         {
             cars.DeleteOne(car => car.Id == id);
         }
-        private static ObjectId UploadFile(GridFSBucket fs)
-        {
-            using (var s = File.OpenRead(@"C:\OurCarPlanner\OurCarPlanner\wwwroot\images\bentley.jpg"))
-            {
-                var t = Task.Run<ObjectId>(() => {
-                    return
-                    fs.UploadFromStreamAsync("bentley.jpg", s);
-                });
+        //private static ObjectId UploadFile(GridFSBucket fs)
+        //{
+        //    using (var s = File.OpenRead(@"C:\OurCarPlanner\OurCarPlanner\wwwroot\images\bentley.jpg"))
+        //    {
+        //        var t = Task.Run<ObjectId>(() => {
+        //            return
+        //            fs.UploadFromStreamAsync("bentley.jpg", s);
+        //        });
 
-                return t.Result;
-            }
-        }
-        private static void DownloadFile(GridFSBucket fs, ObjectId id)
-        {
-            //This works
-            var t = fs.DownloadAsBytesByNameAsync("bentley.jpg");
-            Task.WaitAll(t);
-            var bytes = t.Result;
+        //        return t.Result;
+        //    }
+        //}
+        //private static void DownloadFile(GridFSBucket fs, ObjectId id)
+        //{
+        //    //This works
+        //    var t = fs.DownloadAsBytesByNameAsync("bentley.jpg");
+        //    Task.WaitAll(t);
+        //    var bytes = t.Result;
 
 
-            //This blows chunks (I think it's a driver bug, I'm using 2.1 RC-0)
-            var x = fs.DownloadAsBytesAsync(id);
-            Task.WaitAll(x);
-        }
+        //    //This blows chunks (I think it's a driver bug, I'm using 2.1 RC-0)
+        //    var x = fs.DownloadAsBytesAsync(id);
+        //    Task.WaitAll(x);
+        //}
 
-        public static byte[] ReadImageFile(string imageLocation)
-        {
-            byte[] imageData = null;
-            FileInfo fileInfo = new FileInfo(imageLocation);
-            long imageFileLength = fileInfo.Length;
-            FileStream fs = new FileStream(imageLocation, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            imageData = br.ReadBytes((int)imageFileLength);
-            return imageData;
-        }
+       
     }
 }

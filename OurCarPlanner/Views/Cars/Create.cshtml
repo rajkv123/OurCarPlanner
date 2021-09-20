@@ -70,7 +70,10 @@
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
                 @*<input asp-for="ImageUrl" class="form-control" />*@
-                <input asp-for="ImageUrl" type="file" Class="form-control" />
+                @*<p><label for="file" class="button">CHOOSE A FILE"></label></p>*@
+                <img id="output" width="200" />
+                <input asp-for="ImageUrl" type="file" accept="image/*" name="ImageUrl" id="file" onchange="loadFile(event)";" Class="form-control" />
+
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
 
@@ -88,4 +91,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/custom-validation.js"></script>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using MongoDB.Driver.GridFS;
 using System.IO;
+using Firebase.Storage;
 
 namespace OurCarPlanner.Controllers
 {
@@ -16,6 +17,7 @@ namespace OurCarPlanner.Controllers
     {
         private readonly CarService carService;
         private readonly IHostingEnvironment _iHostEnvironment;
+        private string imgurl = "";
         public CarsController(CarService carService, IHostingEnvironment iHostEnvironment)
         {
             this.carService = carService;
@@ -57,8 +59,11 @@ namespace OurCarPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-               
-                
+             
+                Stream fs = ReadImageFile(car.ImageUrl);
+                car.ImageUrl = StoreImages(fs).Result;
+
+
                 carService.Create(car);
                 return RedirectToAction(nameof(Index));
             }
@@ -92,6 +97,8 @@ namespace OurCarPlanner.Controllers
             }
             if (ModelState.IsValid)
             {
+                Stream fs = ReadImageFile(car.ImageUrl);
+                car.ImageUrl = StoreImages(fs).Result;
                 carService.Update(id, car);
                 return RedirectToAction(nameof(Index));
             }
@@ -139,6 +146,40 @@ namespace OurCarPlanner.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<string> StoreImages(Stream imageStream)
+        {
+            try
+            {
+                Random ff = new Random();
+                string dd = ff.Next(100, 10000).ToString();
+                var stroageImage = await new FirebaseStorage("test-3dead.appspot.com")
+                .Child(dd.ToString() + ".jpg")
+                .PutAsync(imageStream);
+                imgurl = await new FirebaseStorage("test-3dead.appspot.com").Child(dd.ToString() + ".jpg").GetDownloadUrlAsync();
+
+
+                // await DisplayAlert("done", "uploaded the image", "Ok");
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return imgurl;
+        }
+
+        public Stream ReadImageFile(string file)
+        {
+            if (file != null && file.Length != 0)
+            {
+                var uploadPath = Path.Combine(_iHostEnvironment.WebRootPath, "images");
+                FileStream fileStream = new FileStream(Path.Combine(uploadPath,file), FileMode.Open);
+                return fileStream;
+            }
+
+            return null;
         }
     }
 }
