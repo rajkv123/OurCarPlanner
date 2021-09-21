@@ -23,14 +23,14 @@ namespace OurCarPlanner
           .Build();
             MongoClient client = new MongoClient(configuration.GetConnectionString("OurCarDb"));
             IMongoDatabase database = client.GetDatabase("OurCarDb");
-            
+
 
             //var collection1 = database.GetCollection<BsonDocument>("UserMaster");
             //BsonArray dataFields1 = new BsonArray { new BsonDocument {
             //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
 
             //BsonDocument document1 = new BsonDocument {
-            //    { "UserId",12345},
+            //    { "UserId",10001},
             //    { "Username" , "Ranjith Kumar"},
             //    { "Password" , "#123@"},
             //    { "Dob" , "27/12/1980"},
@@ -41,6 +41,58 @@ namespace OurCarPlanner
             //    { "Creation_Date" , "27/08/2021"}};
 
             //collection1.InsertOne(document1);
+
+            //var collection2 = database.GetCollection<BsonDocument>("UserMaster");
+            //BsonArray dataFields2 = new BsonArray { new BsonDocument {
+            //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
+
+            //BsonDocument document2 = new BsonDocument {
+            //    { "UserId",10002},
+            //    { "Username" , "Ranjan Kumar"},
+            //    { "Password" , "#123@"},
+            //    { "Dob" , "27/12/1980"},
+            //    { "Address" , "#502,Eternity Ecstasy Apartment"},
+            //    { "ContactNo" , "9880892916"},
+            //    { "Email" , "ranjit_kumar@gmail.com"},
+            //    { "UserTypeId" , 12345},
+            //    { "Creation_Date" , "27/08/2021"}};
+
+            //collection2.InsertOne(document2);
+
+            //var collection3 = database.GetCollection<BsonDocument>("UserMaster");
+            //BsonArray dataFields3 = new BsonArray { new BsonDocument {
+            //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
+
+            //BsonDocument document3 = new BsonDocument {
+            //    { "UserId",10003},
+            //    { "Username" , "Ranjith Kumar"},
+            //    { "Password" , "#123@"},
+            //    { "Dob" , "27/12/1980"},
+            //    { "Address" , "#502,Eternity Ecstasy Apartment"},
+            //    { "ContactNo" , "9880892916"},
+            //    { "Email" , "ranjit_kumar@gmail.com"},
+            //    { "UserTypeId" , 12345},
+            //    { "Creation_Date" , "27/08/2021"}};
+
+            //collection3.InsertOne(document3);
+
+            //var collection4 = database.GetCollection<BsonDocument>("UserMaster");
+            //BsonArray dataFields4 = new BsonArray { new BsonDocument {
+            //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
+
+            //BsonDocument document4 = new BsonDocument {
+            //    { "UserId",10004},
+            //    { "Username" , "Ranjith Kumar"},
+            //    { "Password" , "#123@"},
+            //    { "Dob" , "27/12/1980"},
+            //    { "Address" , "#502,Eternity Ecstasy Apartment"},
+            //    { "ContactNo" , "9880892916"},
+            //    { "Email" , "ranjit_kumar@gmail.com"},
+            //    { "UserTypeId" , 12345},
+            //    { "Creation_Date" , "27/08/2021"}};
+
+            //collection4.InsertOne(document4);
+
             //var collection2 = database.GetCollection<BsonDocument>("Booking");
             //BsonArray dataFields2 = new BsonArray { new BsonDocument {
             //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
@@ -78,15 +130,15 @@ namespace OurCarPlanner
             //};
             //collection3.InsertOne(document3);
 
-            //var collection4 = database.GetCollection<BsonDocument>("UserType");
-            //BsonArray dataFields4 = new BsonArray { new BsonDocument {
+            //var collection5 = database.GetCollection<BsonDocument>("UserType");
+            //BsonArray dataFields5 = new BsonArray { new BsonDocument {
             //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
 
-            //BsonDocument document4 = new BsonDocument {
+            //BsonDocument document5 = new BsonDocument {
             //    { "UserTypeId" , 12345 },
-            //    { "UserTypeName" , "IT Employee"}               
+            //    { "UserTypeName" , "IT Employee"}
             //};
-            //collection4.InsertOne(document4);
+            //collection5.InsertOne(document5);
 
             //var collection5 = database.GetCollection<BsonDocument>("TokenManager");
             //BsonArray dataFields5 = new BsonArray { new BsonDocument {
@@ -112,21 +164,22 @@ namespace OurCarPlanner
             //};
             //collection6.InsertOne(document6);
 
-            //var collection7 = database.GetCollection<BsonDocument>("GroupMaster");
-            //BsonArray dataFields7 = new BsonArray { new BsonDocument {
+            //var collection6 = database.GetCollection<BsonDocument>("GroupMaster");
+            //BsonArray dataFields6 = new BsonArray { new BsonDocument {
             //{ "ID" , ObjectId.GenerateNewId()}, { "NAME", "ID"}} };
 
-            //BsonDocument document7 = new BsonDocument {
+            //BsonDocument document6 = new BsonDocument {
             //    { "GroupId" , 12345 },
             //    { "GroupName" , "ABCD"},
             //    { "GroupImageUrl" , "http:\\google.com"},
             //    { "GroupAdminId" , "12345"},
             //    { "NumberOfMembers" , "4"},
-            //    { "GroupMembers" , "Yes"}
+            //    { "GroupMembers" , "Yes"},
+            //    { "UserId" , "10001"}
             //};
-            //collection7.InsertOne(document7);
+            //collection6.InsertOne(document6);
 
-           
+
 
             CreateWebHostBuilder(args).Build().Run();
 
